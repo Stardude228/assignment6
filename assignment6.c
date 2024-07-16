@@ -204,13 +204,29 @@ int compare_by_holder_name(const void *a, const void *b) {
     const Account *account_a = (const Account *)a;
     const Account *account_b = (const Account *)b;
 
-    // Compare the names in a case-insensitive manner, but with lowercase first
-    int result = strcasecmp(account_a->account_holder_name, account_b->account_holder_name);
-    if (result == 0) {
-        // If the names are the same case-insensitively, compare case-sensitively
-        result = strcmp(account_a->account_holder_name, account_b->account_holder_name);
+    const char *name_a = account_a->account_holder_name;
+    const char *name_b = account_b->account_holder_name;
+
+    // Compare characters one by one
+    while (*name_a && *name_b) {
+        char char_a = tolower(*name_a); // Convert to lowercase for comparison
+        char char_b = tolower(*name_b);
+
+        if (char_a != char_b) {
+            return char_a - char_b; // Return difference if characters differ
+        }
+
+        // If characters are the same case-insensitively, compare case-sensitively
+        if (*name_a != *name_b) {
+            return *name_a - *name_b;
+        }
+
+        name_a++;
+        name_b++;
     }
-    return result;
+
+    // If one string is a prefix of the other, the shorter string is considered smaller
+    return *name_a - *name_b;
 }
 
 // Comparison function for sorting by open date
