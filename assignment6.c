@@ -272,7 +272,7 @@ void sort_and_print_accounts() {
 
     // Print sorted accounts
     printf("#### Type Holder name                    Open date          Balance\n");
-    printf("------------------------------------------------------------------------\n");
+    printf("--------------------------------------------------------------------\n");
     for (int i = 0; i < account_count; i++) {
         printf("%4d  %-2c  %-29s  %-15s  %9.2f\n",
             accounts[i].account_number,
@@ -281,7 +281,7 @@ void sort_and_print_accounts() {
             accounts[i].open_date,
             accounts[i].balance);
     }
-    printf("------------------------------------------------------------------------\n\n");
+    printf("--------------------------------------------------------------------\n\n");
 }
 
 int main() {
